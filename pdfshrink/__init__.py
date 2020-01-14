@@ -77,13 +77,20 @@ def main():
         if len(args['files']) > 1:
             Error('To use a custom output-file, call PDFs one-by-one')
 
+    if args['output']:
+        outdir = os.path.dirname(args['output'])
+    else:
+        outdir = tempfile.mkdtemp()
+
+    if not os.path.isdir(outdir):
+        os.makedirs(outdir)
+
     for file in args['files']:
 
         if args['output']:
             out = args['output']
         else:
-            out = os.path.join(tempfile.mkdtemp(), 'pdfshrink.pdf')
-
+            out = os.path.join(outdir, 'pdfshrink.pdf')
 
         cmd = ' '.join([
             'gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite',
@@ -113,16 +120,21 @@ def main():
 
         if not args['output']:
             shutil.move(out, file)
-            shutil.rmtree(os.path.split(out)[0])
             if args['verbose']:
                 print('mv {out:s} {file:s}'.format(out=out, file=file))
-                print('rm -r {out:s}'.format(out=out))
+                print('')
 
         if not args['silent']:
             if args['output']:
                 print('[pdfshrink] {file:s} {out:s}'.format(file=file, out=out))
             else:
                 print('[pdfshrink] {file:s}'.format(file=file))
+
+    if not args['output']:
+        shutil.rmtree(outdir)
+        if args['verbose']:
+            print('rm -r {out:s}'.format(out=outdir))
+            print('')
 
 # --------------------------------------------------------------------------------------------------
 
