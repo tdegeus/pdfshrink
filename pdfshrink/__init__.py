@@ -109,11 +109,9 @@ def main():
             '-dDownsampleGrayImages=true',
             '-dDownsampleMonoImages=true',
             '-dHaveTransparency=false',
-            '-dUseCIEColor',
             '-dColorConversionStrategy=/sRGB',
             '-sOutputFile="%s"' % out,
             '"%s"' % file,
-            # '2>/dev/null',
         ])
 
         Run(cmd, args['verbose'])

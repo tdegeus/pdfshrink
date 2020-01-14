@@ -42,4 +42,4 @@ install:
 
 build_script:
   - pdfshrink --version
-  - pdfshrink fig1.pdf fig2.pdf fig3.pdf --verbose
+  - pdfshrink fig1.pdf fig2.pdf fig3.pdf
