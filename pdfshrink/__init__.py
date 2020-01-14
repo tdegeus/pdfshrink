@@ -113,7 +113,7 @@ def main():
             '-dColorConversionStrategy=/sRGB',
             '-sOutputFile="%s"' % out,
             '"%s"' % file,
-            '2>/dev/null',
+            # '2>/dev/null',
         ])
 
         Run(cmd, args['verbose'])
