@@ -109,7 +109,7 @@ def main():
             '2>/dev/null',
         ])
 
-        Run(cmd,**args)
+        Run(cmd, args['verbose'])
 
         if not args['output']:
             shutil.move(out, file)
